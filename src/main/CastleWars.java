@@ -1,32 +1,32 @@
-package example;
+package main;
 
 import arc.*;
 import arc.util.*;
+import main.handlers.EventHandler.EventHandler;
 import mindustry.*;
 import mindustry.content.*;
 import mindustry.game.EventType.*;
 import mindustry.gen.*;
 import mindustry.mod.*;
 import mindustry.net.Administration.*;
-import mindustry.world.Tile;
 import mindustry.world.blocks.storage.*;
 
-public class ExamplePlugin extends Plugin{
-    public String pluginName = "Castle Wars";
-
+public class CastleWars extends Plugin{
     //called when game initializes
     @Override
     public void init(){
-        Events.on(BuildSelectEvent.class, event -> {
-            if (!event.breaking && event.builder.getPlayer() != null) {
+        EventHandler.init();
+        // Should be preventing players from building turrets on unallowed floor blocks
+        /*Events.on(BuildSelectEvent.class, event -> {
+            Log.info("e.t.block() == " + event.tile.block().toString());
+            if (!event.breaking && event.builder.getPlayer() != null && !PluginVars.allowedBlocks.contains(event.tile.block())) {
                 Tile tile = event.tile;
                 Player player = event.builder.getPlayer();
                 Call.removeQueueBlock(player.con, tile.x, tile.y, false);
                 Call.removeTile(tile);
                 Call.label(player.con, "[red]You are not allowed to build it here", 1f, tile.worldx(), tile.worldy());
             }
-
-        });
+        });*/
         //listen for a block selection event
         Events.on(BuildSelectEvent.class, event -> {
             if(!event.breaking && event.builder != null && event.builder.buildPlan() != null && event.builder.buildPlan().block == Blocks.thoriumReactor && event.builder.isPlayer()){
