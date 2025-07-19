@@ -4,15 +4,10 @@ import arc.*;
 import arc.util.*;
 import mindustry.*;
 import mindustry.content.*;
-import mindustry.core.UI;
-import mindustry.entities.units.BuildPlan;
-import mindustry.game.EventType;
 import mindustry.game.EventType.*;
 import mindustry.gen.*;
-import mindustry.input.InputHandler;
 import mindustry.mod.*;
 import mindustry.net.Administration.*;
-import mindustry.world.Block;
 import mindustry.world.Tile;
 import mindustry.world.blocks.storage.*;
 
@@ -24,30 +19,11 @@ public class ExamplePlugin extends Plugin{
     public void init(){
         Events.on(BuildSelectEvent.class, event -> {
             if (!event.breaking && event.builder.getPlayer() != null) {
-                //Unit builder = event.builder;
-                //Player player = builder.getPlayer();
-                //Player player = event.unit.getPlayer();
-                /*Timer.schedule(() -> {
-                    Call.deconstructFinish(tile, tile.block(), event.builder);
-                    tile.setNet(Blocks.air);
-                    event.builder.getPlayer().update();
-                }, 0.000000000000000000001f);*/
                 Tile tile = event.tile;
-                int[] positions = {tile.x, tile.y};
                 Player player = event.builder.getPlayer();
                 Call.removeQueueBlock(player.con, tile.x, tile.y, false);
                 Call.removeTile(tile);
-                /*try {
-                    InputHandler.deletePlans(event.builder.getPlayer(), positions);
-                }
-                catch (Exception ValidateException) {
-                    Log.warn(pluginName + ": ValidateException");
-                }
-                Call.deconstructFinish(tile, tile.block(), event.builder);
-                //tile.setNet(Blocks.air);*/
                 Call.label(player.con, "[red]You are not allowed to build it here", 1f, tile.worldx(), tile.worldy());
-                //Call.setHudText(player.con, "[#f] Stop doing this");
-                //Call.sendMessage(player.con, "[red]stop building ts", "stop building ts", null);
             }
 
         });
