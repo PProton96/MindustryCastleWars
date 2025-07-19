@@ -10,8 +10,8 @@ import mindustry.world.Tile;
 public class BuildEvents {
     public static void BuildRestrictions(EventType.BuildSelectEvent event) {
         // Should be preventing players from building turrets on unallowed floor blocks
-        Log.info("e.t.block() == " + event.tile.block().toString());
-        if (!event.breaking && event.builder.getPlayer() != null && !PluginVars.allowedBlocks.contains(event.tile.block())) {
+        Log.info("e.t.block() == " + event.tile.floor().toString());
+        if (!event.breaking && event.builder.getPlayer() != null && !PluginVars.allowedBlocks.contains(event.tile.floor())) {
             Tile tile = event.tile;
             Player player = event.builder.getPlayer();
             Call.removeQueueBlock(player.con, tile.x, tile.y, false);
