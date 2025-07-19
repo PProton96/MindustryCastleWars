@@ -1,10 +1,8 @@
 package main;
 
 import mindustry.content.Blocks;
-import mindustry.mod.Plugin;
 import mindustry.world.Block;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
