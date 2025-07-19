@@ -14,20 +14,9 @@ import mindustry.world.blocks.storage.*;
 public class CastleWars extends Plugin{
     //called when game initializes
     @Override
-    public void init(){
+    public void init() {
         EventHandler.init();
-        // Should be preventing players from building turrets on unallowed floor blocks
-        /*Events.on(BuildSelectEvent.class, event -> {
-            Log.info("e.t.block() == " + event.tile.block().toString());
-            if (!event.breaking && event.builder.getPlayer() != null && !PluginVars.allowedBlocks.contains(event.tile.block())) {
-                Tile tile = event.tile;
-                Player player = event.builder.getPlayer();
-                Call.removeQueueBlock(player.con, tile.x, tile.y, false);
-                Call.removeTile(tile);
-                Call.label(player.con, "[red]You are not allowed to build it here", 1f, tile.worldx(), tile.worldy());
-            }
-        });*/
-        //listen for a block selection event
+        /*listen for a block selection event
         Events.on(BuildSelectEvent.class, event -> {
             if(!event.breaking && event.builder != null && event.builder.buildPlan() != null && event.builder.buildPlan().block == Blocks.thoriumReactor && event.builder.isPlayer()){
                 //player is the unit controller
@@ -92,5 +81,6 @@ public class CastleWars extends Plugin{
             //send the other player a message, using [lightgray] for gray text color and [] to reset color
             other.sendMessage("[lightgray](whisper) " + player.name + ":[] " + args[1]);
         });
+    }*/
     }
 }
