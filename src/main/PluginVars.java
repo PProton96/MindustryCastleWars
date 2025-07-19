@@ -110,4 +110,17 @@ public class PluginVars{
         PlayerData data = dataMap.computeIfAbsent(uuid, k ->(new PlayerData(starterBalance, starterIncome)));
         return data.income;
     }
+    public static void updateBalance(String uuid) {
+        PlayerData data = dataMap.get(uuid);
+        data.balance += data.income;
+        dataMap.put(uuid, data);
+    }
+    public static void updateIncome(String uuid, int x) {
+        PlayerData data = dataMap.get(uuid);
+        data.income += x;
+        dataMap.put(uuid, data);
+    }
+    /* Методы получения и обновления данных в хеш-таблице.
+     * Если при попытке получить данные в таблице ничего нет - добавить стартовые значения.
+     */
 }

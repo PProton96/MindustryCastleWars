@@ -2,6 +2,7 @@ package main;
 
 import arc.*;
 import arc.util.*;
+import main.handlers.ClientCommandsHandler.ClientCommandsHandler;
 import main.handlers.EventHandler.EventHandler;
 import mindustry.*;
 import mindustry.content.*;
@@ -10,12 +11,23 @@ import mindustry.gen.*;
 import mindustry.mod.*;
 import mindustry.net.Administration.*;
 import mindustry.world.blocks.storage.*;
+import mindustry.Vars.*;
 
 public class CastleWars extends Plugin{
     //called when game initializes
     @Override
     public void init() {
         EventHandler.init();
+        Timer.schedule(() -> {
+            Groups.player.forEach(player -> {
+                PluginVars.PlayerData data = PluginVars.getOrCreateData(player.uuid());
+                PluginVars.updateBalance(player.uuid());
+                String message = String.format("[forest]Ваш баланс: %d\n[forest]Ваш доход: [yellow]%d", data.balance, data.income);
+                Call.setHudText(player.con, message);
+            });
+        }, 0f, 1f);
+        /* Обновляем баланс игрокам каждую секунду
+         */
         /*listen for a block selection event
         Events.on(BuildSelectEvent.class, event -> {
             if(!event.breaking && event.builder != null && event.builder.buildPlan() != null && event.builder.buildPlan().block == Blocks.thoriumReactor && event.builder.isPlayer()){
