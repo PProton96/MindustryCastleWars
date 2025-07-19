@@ -11,8 +11,8 @@ public class BuildEvents {
     public static void BuildRestrictions(EventType.BuildSelectEvent event) {
         // Should be preventing players from building turrets on unallowed floor blocks
         Log.info("e.t.block() == " + event.tile.floor().toString());
-        if (!event.breaking && event.builder.getPlayer() != null && !PluginVars.allowedBlocks.contains(event.tile.floor())) {
-            Tile tile = event.tile;
+        Tile tile = event.tile;
+        if (!event.breaking && event.builder.getPlayer() != null && !PluginVars.allowedFloors.contains(tile.floor()) && PluginVars.bannedBlocks.contains(tile.block())) {
             Player player = event.builder.getPlayer();
             Call.removeQueueBlock(player.con, tile.x, tile.y, false);
             Call.removeTile(tile);
