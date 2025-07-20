@@ -18,11 +18,13 @@ public class WorldEvents {
                 PluginVars.shardedSpawns.add(tile);
                 tile.setNet(Blocks.air);
             }
-            else if (tile.team() != Team.blue) {
-                Log.warn(String.format("[%s]: Encountered error while inspecting spawn tiles. Expected tile.team() Team.sharded or Team.blue, got %s.", PluginVars.pluginName, tile.team().toString()));
+            else if (tile.block() == Blocks.powerVoid && tile.team() == Team.blue) {
+                PluginVars.blueSpawns.add(tile);
+                tile.setNet(Blocks.air);
             }
-            PluginVars.blueSpawns.add(tile);
-            tile.setNet(Blocks.air);
+            else if (tile.block() == Blocks.powerVoid && tile.team() != Team.blue && tile.team() != Team.sharded){
+                Log.warn(String.format("[%s]: Encountered error while inspecting spawn tiles. Expected tile.team() = Team.sharded or Team.blue, got %s.", PluginVars.pluginName, tile.team().toString()));
+            }
             /* WIP
              * Система установки спавнов и записи их в отдельные переменные.
              * Учтены исключения когда тайлам присвоены неверные команды которые плагин не использует.
