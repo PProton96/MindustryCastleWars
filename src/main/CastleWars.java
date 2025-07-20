@@ -22,7 +22,7 @@ public class CastleWars extends Plugin {
             Groups.player.forEach(player -> {
                 PluginVars.PlayerData data = PluginVars.getOrCreateData(player.uuid());
                 PluginVars.updateBalance(player.uuid());
-                String message = String.format("[forest]Ваш баланс: %d\n[forest]Ваш доход: [yellow]%d", data.balance, data.income);
+                String message = String.format("[green]Ваш баланс: [forest]%d\n[green]Ваш доход: [forest]%d", data.balance, data.income);
                 Call.setHudText(player.con, message);
             });
         }, 0f, 1.5f);

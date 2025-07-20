@@ -2,6 +2,8 @@ package main.handlers.EventHandler.Events;
 
 import arc.util.Log;
 import main.PluginVars;
+import mindustry.Vars;
+import mindustry.content.Blocks;
 import mindustry.game.EventType;
 
 public class WorldEvents {
@@ -10,5 +12,13 @@ public class WorldEvents {
     }
     public static void WorldLoadEndEvent(EventType.WorldLoadEndEvent event) {
         Log.info(String.format("[%s]: WorldLoadEndEvent activation.", PluginVars.pluginName));
+        Vars.world.tiles.forEach(tile -> {
+            if (tile.block() == Blocks.powerVoid) {
+
+            }
+            /* TODO
+             * Система установки спавнов и записи их в отдельные переменные.
+             */
+        });
     }
 }
