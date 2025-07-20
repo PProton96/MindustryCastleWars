@@ -5,6 +5,7 @@ import arc.util.Log;
 import main.PluginVars;
 import main.handlers.EventHandler.Events.BuildEvents;
 import main.handlers.EventHandler.Events.PlayerEvents;
+import main.handlers.EventHandler.Events.PluginEvents;
 import main.handlers.EventHandler.Events.WorldEvents;
 import mindustry.game.EventType;
 
@@ -18,6 +19,7 @@ public class EventHandler {
         PlayerEvents.init();
         BuildEvents.init();
         WorldEvents.init();
+        PluginEvents.init();
     }
     public static void listen() {
         Events.on(EventType.WorldLoadEndEvent.class, WorldEvents::WorldLoadEndEvent);

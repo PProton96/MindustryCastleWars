@@ -15,8 +15,7 @@ public class CastleWars extends Plugin {
         EventHandler.init();
         ServerCommandsHandler.init();
         ClientCommandsHandler.init();
-        /*
-         * Инициализация всех модулей.
+        /* Инициализация всех модулей.
          */
         Timer.schedule(() -> {
             Groups.player.forEach(player -> {
@@ -26,22 +25,22 @@ public class CastleWars extends Plugin {
                 Call.setHudText(player.con, message);
             });
         }, 0f, 1.5f);
-        // Обновление баланса игроков каждые 1.5 секунды.
+        /* Обновляем баланс игрокам каждые 1.5 секунды.
+         */
     }
     @Override
     public void registerClientCommands(CommandHandler handler) {
         ClientCommandsHandler.register(handler);
     }
+    /* Обработчик клиентских команд.
+     */
     @Override
     public void registerServerCommands(CommandHandler handler) {
         ServerCommandsHandler.register(handler);
     }
-    /*
-     * Обработчик клиентских команд.
+    /* Обработчик серверных команд.
      */
 }
-        /* Обновляем баланс игрокам каждую секунду
-         */
         /*listen for a block selection event
         Events.on(BuildSelectEvent.class, event -> {
             if(!event.breaking && event.builder != null && event.builder.buildPlan() != null && event.builder.buildPlan().block == Blocks.thoriumReactor && event.builder.isPlayer()){

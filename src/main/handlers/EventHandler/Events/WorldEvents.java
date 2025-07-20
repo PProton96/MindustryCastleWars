@@ -5,6 +5,7 @@ import main.PluginVars;
 import mindustry.Vars;
 import mindustry.content.Blocks;
 import mindustry.game.EventType;
+import mindustry.game.Team;
 
 public class WorldEvents {
     public static void init() {
@@ -13,11 +14,18 @@ public class WorldEvents {
     public static void WorldLoadEndEvent(EventType.WorldLoadEndEvent event) {
         Log.info(String.format("[%s]: WorldLoadEndEvent activation.", PluginVars.pluginName));
         Vars.world.tiles.forEach(tile -> {
-            if (tile.block() == Blocks.powerVoid) {
-
+            if (tile.block() == Blocks.powerVoid && tile.team() == Team.sharded) {
+                PluginVars.shardedSpawns.add(tile);
+                tile.setNet(Blocks.air);
             }
-            /* TODO
+            else if (tile.team() != Team.blue) {
+                Log.warn(String.format("[%s]: Encountered error while inspecting spawn tiles. Expected tile.team() Team.sharded or Team.blue, got %s.", PluginVars.pluginName, tile.team().toString()));
+            }
+            PluginVars.blueSpawns.add(tile);
+            tile.setNet(Blocks.air);
+            /* WIP
              * Система установки спавнов и записи их в отдельные переменные.
+             * Учтены исключения когда тайлам присвоены неверные команды которые плагин не использует.
              */
         });
     }

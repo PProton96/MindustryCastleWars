@@ -1,10 +1,15 @@
 package main;
 
+import arc.struct.Seq;
 import arc.util.Log;
 import mindustry.content.Blocks;
 import mindustry.content.Items;
+import mindustry.content.UnitTypes;
+import mindustry.game.Team;
 import mindustry.type.Item;
+import mindustry.type.UnitType;
 import mindustry.world.Block;
+import mindustry.world.Tile;
 
 import java.util.*;
 
@@ -72,6 +77,18 @@ public class PluginVars{
             Items.oxide,
             Items.carbide
     ));
+    public static final Set<UnitType> navalUnits = new HashSet<>(Arrays.asList(
+            UnitTypes.risso,
+            UnitTypes.minke,
+            UnitTypes.bryde,
+            UnitTypes.sei,
+            UnitTypes.omura,
+            UnitTypes.retusa,
+            UnitTypes.oxynoe,
+            UnitTypes.cyerce,
+            UnitTypes.aegires,
+            UnitTypes.navanax
+    ));
     public static class PlayerData {
         public int balance;
         public int income;
@@ -80,24 +97,24 @@ public class PluginVars{
             this.income = income;
         }
     }
-    public static HashMap<String, PlayerData> dataMap = new HashMap<>();
+    public static HashMap<String, PlayerData> playersData = new HashMap<>();
     /*
      * Хеш-таблица, хранящая данные в формате
      * {String uuid: PlayerData(data)}
      */
     public static PlayerData getOrCreateData(String uuid) {
-        return dataMap.computeIfAbsent(uuid, k ->(new PlayerData(starterBalance, starterIncome)));
+        return playersData.computeIfAbsent(uuid, k ->(new PlayerData(starterBalance, starterIncome)));
     }
     /*
      * Метод получения данных из хеш-таблицы.
      * Если данных нет - заполняем предварительно установленными значениями.
      * */
     public static void deleteAllData() {
-        dataMap.clear();
+        playersData.clear();
         Log.info(String.format("[%s]: Players data was deleted.", pluginName));
     }
     public static void updateBalance(String uuid) {
-        PlayerData data = dataMap.get(uuid);
+        PlayerData data = playersData.get(uuid);
         if (data.balance + data.income < data.balance) {
             Log.warn(String.format("[%s]: Balance Overflow! UUID: %s .", pluginName, uuid));
         };
@@ -105,19 +122,28 @@ public class PluginVars{
          * (2 миллиарда 147 миллионов 483 тысячи 647)
          */
         data.balance += data.income;
-        dataMap.put(uuid, data);
+        playersData.put(uuid, data);
     }
     public static void updateIncome(String uuid, int x) {
-        PlayerData data = dataMap.get(uuid);
+        PlayerData data = playersData.get(uuid);
         Log.info(String.format("[%s]: %s income increased by %d.", pluginName, uuid, x));
         data.income += x;
-        dataMap.put(uuid, data);
+        playersData.put(uuid, data);
     }
     /* Методы получения и обновления данных в хеш-таблице.
      * Если при попытке получить данные в таблице ничего нет - добавить стартовые значения.
      */
+    public static Seq<Tile> shardedSpawns = new Seq<>();
+    public static Seq<Tile> blueSpawns = new Seq<>();
+    public static boolean isNaval(Tile tile) {
+        return tile.floor().isLiquid;
+    }
+    /*
+     * Проверяем, предназначен ли спавн для водных юнитов. После такой проверки мы понимаем, что
+     * если не является - то спавн подходит для наземных и воздушных юнитов, если является - то спавн
+     * подходит для воздушных и водных юнитов.
+     */
     /* TODO:
-     * Создать переменную-хранилище для точек спавна, переменная должна хранить команду, тип спавна(наземный/морской) и тайл(х, у)
      * Сделать нормальный шаблон Tower
      * Сделать классы башен для каждой турели со своими апгрейдами и ценами
      * Реализовать систему апгрейдов
