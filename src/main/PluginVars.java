@@ -133,6 +133,10 @@ public class PluginVars{
     /* Методы получения и обновления данных в хеш-таблице.
      * Если при попытке получить данные в таблице ничего нет - добавить стартовые значения.
      */
+    public class spawnsData {
+        Tile tile;
+
+    }
     public static Seq<Tile> shardedSpawns = new Seq<>();
     public static Seq<Tile> blueSpawns = new Seq<>();
     public static boolean isNaval(Tile tile) {
