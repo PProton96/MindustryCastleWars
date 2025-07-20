@@ -5,6 +5,7 @@ import arc.util.Log;
 import main.PluginVars;
 import main.handlers.EventHandler.Events.BuildEvents;
 import main.handlers.EventHandler.Events.PlayerEvents;
+import main.handlers.EventHandler.Events.WorldEvents;
 import mindustry.game.EventType;
 
 public class EventHandler {
@@ -16,13 +17,11 @@ public class EventHandler {
     public static void eventsInit() {
         PlayerEvents.init();
         BuildEvents.init();
+        WorldEvents.init();
     }
     public static void listen() {
-        Events.on(EventType.WorldLoadEndEvent.class, event -> {
-            Log.info(String.format("[%s]: WorldLoadEndEvent activation", PluginVars.pluginName));
-        });
+        Events.on(EventType.WorldLoadEndEvent.class, WorldEvents::WorldLoadEndEvent);
         /* TODO:
-         * Очистка хеш-таблицы с данными игроков при загрузке карты.
          * Установка точек спавна при загрузке мира.
          * Система спавна юнитов врагам или у себя на базе.
          */

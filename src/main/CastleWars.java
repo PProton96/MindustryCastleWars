@@ -1,7 +1,8 @@
 package main;
 
 import arc.util.*;
-import main.handlers.ClientCommandsHandler.ClientCommandsHandler;
+import main.handlers.CommandsHandlers.ClientCommandsHandler;
+import main.handlers.CommandsHandlers.ServerCommandsHandler;
 import main.handlers.EventHandler.EventHandler;
 import mindustry.gen.*;
 import mindustry.mod.*;
@@ -12,6 +13,7 @@ public class CastleWars extends Plugin {
     public void init() {
         PluginVars.init();
         EventHandler.init();
+        ServerCommandsHandler.init();
         ClientCommandsHandler.init();
         /*
          * Инициализация всех модулей.
@@ -23,11 +25,16 @@ public class CastleWars extends Plugin {
                 String message = String.format("[forest]Ваш баланс: %d\n[forest]Ваш доход: [yellow]%d", data.balance, data.income);
                 Call.setHudText(player.con, message);
             });
-        }, 0f, 1f); // Обновление баланса игроков каждую секунду.
+        }, 0f, 1.5f);
+        // Обновление баланса игроков каждые 1.5 секунды.
     }
     @Override
     public void registerClientCommands(CommandHandler handler) {
         ClientCommandsHandler.register(handler);
+    }
+    @Override
+    public void registerServerCommands(CommandHandler handler) {
+        ServerCommandsHandler.register(handler);
     }
     /*
      * Обработчик клиентских команд.

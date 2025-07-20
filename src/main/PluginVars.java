@@ -92,18 +92,24 @@ public class PluginVars{
      * Метод получения данных из хеш-таблицы.
      * Если данных нет - заполняем предварительно установленными значениями.
      * */
-    public static void deleteAllData(String uuid) {
+    public static void deleteAllData() {
         dataMap.clear();
         Log.info(String.format("[%s]: Players data was deleted.", pluginName));
     }
     public static void updateBalance(String uuid) {
         PlayerData data = dataMap.get(uuid);
+        if (data.balance + data.income < data.balance) {
+            Log.warn(String.format("[%s]: Balance Overflow! UUID: %s .", pluginName, uuid));
+        };
+        /* Проверка на случай если какой-то игрок волшебным образом скопит у себя больше чем 2,147,483,647.
+         * (2 миллиарда 147 миллионов 483 тысячи 647)
+         */
         data.balance += data.income;
         dataMap.put(uuid, data);
     }
     public static void updateIncome(String uuid, int x) {
         PlayerData data = dataMap.get(uuid);
-        Log.info(String.format("[%s]: %s income increased by %d", pluginName, uuid, x));
+        Log.info(String.format("[%s]: %s income increased by %d.", pluginName, uuid, x));
         data.income += x;
         dataMap.put(uuid, data);
     }
@@ -150,13 +156,13 @@ public class PluginVars{
     public class DuoTower extends Tower {
         public DuoTower() {
             super(100, Blocks.duo);
-            availableUpgrades.add(new Upgrade(100, "Ammo Upgrade #1", "Your turret will get silicon ammo", Items.silicon));
+            availableUpgrades.add(new Upgrade(100, "Ammo Upgrade #1", "Your turret will get silicon ammo.", Items.silicon));
         }
     }
     public class ScatterTower extends Tower {
         public ScatterTower() {
             super(150, Blocks.scatter);
-            availableUpgrades.add(new Upgrade(100, "Ammo Upgrade #1", "Your turret will get metaglass ammo", Items.metaglass));
+            availableUpgrades.add(new Upgrade(100, "Ammo Upgrade #1", "Your turret will get metaglass ammo.", Items.metaglass));
         }
     }
 }
