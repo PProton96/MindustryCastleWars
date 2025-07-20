@@ -1,23 +1,21 @@
 package main;
 
-import arc.*;
 import arc.util.*;
 import main.handlers.ClientCommandsHandler.ClientCommandsHandler;
 import main.handlers.EventHandler.EventHandler;
-import mindustry.*;
-import mindustry.content.*;
-import mindustry.game.EventType.*;
 import mindustry.gen.*;
 import mindustry.mod.*;
-import mindustry.net.Administration.*;
-import mindustry.world.blocks.storage.*;
-import mindustry.Vars.*;
 
-public class CastleWars extends Plugin{
+public class CastleWars extends Plugin {
     //called when game initializes
     @Override
     public void init() {
+        PluginVars.init();
         EventHandler.init();
+        ClientCommandsHandler.init();
+        /*
+         * Инициализация всех модулей.
+         */
         Timer.schedule(() -> {
             Groups.player.forEach(player -> {
                 PluginVars.PlayerData data = PluginVars.getOrCreateData(player.uuid());
@@ -25,7 +23,16 @@ public class CastleWars extends Plugin{
                 String message = String.format("[forest]Ваш баланс: %d\n[forest]Ваш доход: [yellow]%d", data.balance, data.income);
                 Call.setHudText(player.con, message);
             });
-        }, 0f, 1f);
+        }, 0f, 1f); // Обновление баланса игроков каждую секунду.
+    }
+    @Override
+    public void registerClientCommands(CommandHandler handler) {
+        ClientCommandsHandler.register(handler);
+    }
+    /*
+     * Обработчик клиентских команд.
+     */
+}
         /* Обновляем баланс игрокам каждую секунду
          */
         /*listen for a block selection event
@@ -94,5 +101,3 @@ public class CastleWars extends Plugin{
             other.sendMessage("[lightgray](whisper) " + player.name + ":[] " + args[1]);
         });
     }*/
-    }
-}

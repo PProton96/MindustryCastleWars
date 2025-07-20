@@ -9,6 +9,15 @@ import mindustry.game.EventType;
 
 public class EventHandler {
     public static void init() {
+        Log.info(String.format("[%s]: main.handlers.EventHandler initialized.", PluginVars.pluginName));
+        eventsInit();
+        listen();
+    }
+    public static void eventsInit() {
+        PlayerEvents.init();
+        BuildEvents.init();
+    }
+    public static void listen() {
         Events.on(EventType.WorldLoadEndEvent.class, event -> {
             Log.info(String.format("[%s]: WorldLoadEndEvent activation", PluginVars.pluginName));
         });
