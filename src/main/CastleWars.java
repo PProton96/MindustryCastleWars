@@ -4,6 +4,7 @@ import arc.util.*;
 import main.handlers.CommandsHandlers.ClientCommandsHandler;
 import main.handlers.CommandsHandlers.ServerCommandsHandler;
 import main.handlers.EventHandler.EventHandler;
+import main.handlers.MenuHandler.MenuHandler;
 import mindustry.gen.*;
 import mindustry.mod.*;
 
@@ -13,19 +14,10 @@ public class CastleWars extends Plugin {
     public void init() {
         PluginVars.init();
         EventHandler.init();
+        MenuHandler.init();
         ServerCommandsHandler.init();
         ClientCommandsHandler.init();
         /* Инициализация всех модулей.
-         */
-        Timer.schedule(() -> {
-            Groups.player.forEach(player -> {
-                PluginVars.PlayerData data = PluginVars.getOrCreateData(player.uuid());
-                PluginVars.updateBalance(player.uuid());
-                String message = String.format("[lime]Ваш баланс: [green]%d\n[lime]Ваш доход: [green]%d", data.balance, data.income);
-                Call.setHudText(player.con, message);
-            });
-        }, 0f, 1.5f);
-        /* Обновляем баланс игрокам каждые 1.5 секунды.
          */
     }
     @Override

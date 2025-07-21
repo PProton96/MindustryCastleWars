@@ -11,9 +11,9 @@ import mindustry.game.EventType;
 
 public class EventHandler {
     public static void init() {
-        Log.info(String.format("[%s]: main.handlers.EventHandler initialized.", PluginVars.pluginName));
         eventsInit();
         listen();
+        Log.info(String.format("[%s]: main.handlers.EventHandler initialized.", PluginVars.pluginName));
     }
     public static void eventsInit() {
         PlayerEvents.init();
@@ -29,5 +29,6 @@ public class EventHandler {
          */
         Events.on(EventType.PlayerJoin.class, PlayerEvents::JoinEvent);
         Events.on(EventType.BuildSelectEvent.class, BuildEvents::BuildRestrictions);
+        Events.on(EventType.CoreChangeEvent.class, WorldEvents::CoreChangeEvent);
     }
 }

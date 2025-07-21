@@ -1,11 +1,14 @@
 package main;
 
+import arc.struct.ObjectMap;
+import arc.struct.ObjectSet;
 import arc.struct.Seq;
 import arc.util.Log;
 import mindustry.content.Blocks;
 import mindustry.content.Items;
 import mindustry.content.UnitTypes;
 import mindustry.game.Team;
+import mindustry.gen.Unit;
 import mindustry.type.Item;
 import mindustry.type.UnitType;
 import mindustry.world.Block;
@@ -89,6 +92,65 @@ public class PluginVars{
             UnitTypes.aegires,
             UnitTypes.navanax
     ));
+    public static final Set<UnitType> playersUnits = new HashSet<>(Arrays.asList(
+            UnitTypes.alpha,
+            UnitTypes.beta,
+            UnitTypes.gamma,
+            UnitTypes.evoke,
+            UnitTypes.incite,
+            UnitTypes.emanate
+    ));
+    public static final ObjectMap<UnitType, Integer> sendableUnits;
+    // UnitType, cost.
+    static {
+        sendableUnits =  new ObjectMap<>();
+        sendableUnits.put(UnitTypes.dagger, 1);
+        sendableUnits.put(UnitTypes.mace, 1);
+        sendableUnits.put(UnitTypes.fortress, 1);
+        sendableUnits.put(UnitTypes.scepter, 1);
+        sendableUnits.put(UnitTypes.reign, 1);
+        sendableUnits.put(UnitTypes.nova, 1);
+        sendableUnits.put(UnitTypes.pulsar, 1);
+        sendableUnits.put(UnitTypes.quasar, 1);
+        sendableUnits.put(UnitTypes.vela, 1);
+        sendableUnits.put(UnitTypes.corvus, 1);
+        sendableUnits.put(UnitTypes.crawler, 1);
+        sendableUnits.put(UnitTypes.flare, 1);
+        sendableUnits.put(UnitTypes.horizon, 1);
+        sendableUnits.put(UnitTypes.zenith, 1);
+        sendableUnits.put(UnitTypes.antumbra, 1);
+        sendableUnits.put(UnitTypes.eclipse, 1);
+        sendableUnits.put(UnitTypes.mono, 1);
+        sendableUnits.put(UnitTypes.poly, 1);
+        sendableUnits.put(UnitTypes.mega, 1);
+        sendableUnits.put(UnitTypes.quad, 1);
+        sendableUnits.put(UnitTypes.oct, 1);
+        sendableUnits.put(UnitTypes.risso, 1);
+        sendableUnits.put(UnitTypes.minke, 1);
+        sendableUnits.put(UnitTypes.bryde, 1);
+        sendableUnits.put(UnitTypes.sei, 1);
+        sendableUnits.put(UnitTypes.omura, 1);
+        sendableUnits.put(UnitTypes.retusa, 1);
+        sendableUnits.put(UnitTypes.oxynoe, 1);
+        sendableUnits.put(UnitTypes.cyerce, 1);
+        sendableUnits.put(UnitTypes.aegires, 1);
+        sendableUnits.put(UnitTypes.navanax, 1);
+        sendableUnits.put(UnitTypes.stell, 1);
+        sendableUnits.put(UnitTypes.locus, 1);
+        sendableUnits.put(UnitTypes.precept, 1);
+        sendableUnits.put(UnitTypes.vanquish, 1);
+        sendableUnits.put(UnitTypes.conquer, 1);
+        sendableUnits.put(UnitTypes.merui, 1);
+        sendableUnits.put(UnitTypes.cleroi, 1);
+        sendableUnits.put(UnitTypes.anthicus, 1);
+        sendableUnits.put(UnitTypes.tecta, 1);
+        sendableUnits.put(UnitTypes.collaris, 1);
+        sendableUnits.put(UnitTypes.elude, 1);
+        sendableUnits.put(UnitTypes.avert, 1);
+        sendableUnits.put(UnitTypes.obviate, 1);
+        sendableUnits.put(UnitTypes.quell, 1);
+        sendableUnits.put(UnitTypes.disrupt, 1);
+    }
     public static class PlayerData {
         public int balance;
         public int income;

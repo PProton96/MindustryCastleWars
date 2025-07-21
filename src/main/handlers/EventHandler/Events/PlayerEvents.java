@@ -2,6 +2,7 @@ package main.handlers.EventHandler.Events;
 
 import arc.util.Log;
 import main.PluginVars;
+import main.handlers.MenuHandler.MenuHandler;
 import mindustry.game.EventType;
 import mindustry.gen.*;
 
@@ -14,5 +15,6 @@ public class PlayerEvents {
         Player player = event.player;
         String uuid = player.uuid();
         PluginVars.getOrCreateData(uuid);
+        MenuHandler.welcomeMenu(player.con);
     }
 }
