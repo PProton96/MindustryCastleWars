@@ -28,13 +28,16 @@ public class PluginEvents {
         }, 0f, 1.5f);
         /* Обновляем баланс игрокам каждые 1.5 секунды.
          */
-        Groups.unit.forEach(unit -> {
-            Tile tile = unit.tileOn();
-            UnitType uType = unit.type;
-            if (tile.floor() == Blocks.space && !PluginVars.playersUnits.contains(uType)) {
-                unit.kill();
-            }
-        });
+        Timer.schedule(() -> {
+            Groups.unit.forEach(unit -> {
+                if (unit.tileOn() == null) {return;}
+                Tile tile = unit.tileOn();
+                UnitType uType = unit.type;
+                if (tile.floor() == Blocks.space && !PluginVars.playersUnits.contains(uType)) {
+                    unit.kill();
+                }
+            });
+        }, 0f, 0.1f);
         Timer.schedule(() -> {
             PluginVars.shardedSpawns.forEach(tile -> {
                 Call.effect(Fx.circleColorSpark, tile.worldx(), tile.worldy(), 0f, Color.yellow);
@@ -68,6 +71,6 @@ public class PluginEvents {
             Log.warn(String.format("[%s]: Encountered an error while attempting to spawn unit %s. Tile spawnTile wasn't initialized.", PluginVars.pluginName, unit.toString()));
         }
         else {unit.spawn(spawnTile.getX(), spawnTile.getY());}
-        // TODO
+        // TODO: remake this awful shit.
     }
 }

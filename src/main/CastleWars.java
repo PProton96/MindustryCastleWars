@@ -5,7 +5,6 @@ import main.handlers.CommandsHandlers.ClientCommandsHandler;
 import main.handlers.CommandsHandlers.ServerCommandsHandler;
 import main.handlers.EventHandler.EventHandler;
 import main.handlers.MenuHandler.MenuHandler;
-import mindustry.gen.*;
 import mindustry.mod.*;
 
 public class CastleWars extends Plugin {
@@ -21,16 +20,16 @@ public class CastleWars extends Plugin {
          */
     }
     @Override
-    public void registerClientCommands(CommandHandler handler) {
-        ClientCommandsHandler.register(handler);
-    }
-    /* Обработчик клиентских команд.
-     */
-    @Override
     public void registerServerCommands(CommandHandler handler) {
         ServerCommandsHandler.register(handler);
     }
     /* Обработчик серверных команд.
+     */
+    @Override
+    public void registerClientCommands(CommandHandler handler) {
+        ClientCommandsHandler.register(handler);
+    }
+    /* Обработчик клиентских команд.
      */
 }
         /*listen for a block selection event

@@ -29,6 +29,6 @@ public class EventHandler {
          */
         Events.on(EventType.PlayerJoin.class, PlayerEvents::JoinEvent);
         Events.on(EventType.BuildSelectEvent.class, BuildEvents::BuildRestrictions);
-        Events.on(EventType.CoreChangeEvent.class, WorldEvents::CoreChangeEvent);
+        Events.on(EventType.BlockDestroyEvent.class, WorldEvents::BlockDestroyEvent);
     }
 }

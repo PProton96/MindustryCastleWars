@@ -1,12 +1,9 @@
 package main.handlers.EventHandler.Events;
 
-import arc.Core;
 import arc.util.Log;
-import arc.util.Timer;
 import main.PluginVars;
 import mindustry.Vars;
 import mindustry.content.Blocks;
-import mindustry.core.GameState;
 import mindustry.core.Logic;
 import mindustry.game.EventType;
 import mindustry.game.Team;
@@ -14,7 +11,7 @@ import mindustry.world.blocks.storage.CoreBlock;
 
 public class WorldEvents {
     public static void init() {
-        Log.info(String.format("[%s]: EventHandler.Events.WorldEvents initialized.", PluginVars.pluginName));
+        Log.info(String.format("[%s]: main.handlers.EventHandler.Events.WorldEvents initialized.", PluginVars.pluginName));
     }
     public static void WorldLoadEndEvent(EventType.WorldLoadEndEvent event) {
         Log.info(String.format("[%s]: WorldLoadEndEvent activation.", PluginVars.pluginName));
@@ -36,14 +33,12 @@ public class WorldEvents {
              */
         });
     }
-    public static void CoreChangeEvent(EventType.CoreChangeEvent event) {
-        //TODO пофиксить краш сервера от этого ивента и сделать чтобы победа засчитывалась оставшейся команде.
-        /*if (event.tile.build instanceof CoreBlock.CoreBuild) {
-            for (Team team : Team.all) {
-                if (team.active() && !team.cores().isEmpty() || team.cores().size < 1) {
-                    Logic.gameOver(team);
-                }
-            }
-        }*/
+    public static void BlockDestroyEvent(EventType.BlockDestroyEvent event) {
+        if (event.tile.build instanceof CoreBlock.CoreBuild && event.tile.team().cores().size == 0) {
+            if (event.tile.team() == Team.sharded) {Logic.gameOver(Team.blue);}
+            else if (event.tile.team() == Team.blue) {Logic.gameOver(Team.sharded);}
+            else {Logic.gameOver(Team.derelict);}
+        }
+        //TODO: its not working
     }
 }

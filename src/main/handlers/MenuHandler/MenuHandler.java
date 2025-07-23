@@ -7,16 +7,32 @@ import mindustry.net.NetConnection;
 
 public class MenuHandler {
     public static void init() {
-        Log.info(String.format("[%s]: main.handlers.MenuHandler initialized.", PluginVars.pluginName));
+        Log.info(String.format("[%s]: main.handlers.MenuHandler.MenuHandler initialized.", PluginVars.pluginName));
     }
-    public static void welcomeMenu(NetConnection playerCon) {
+    /* Simplest Menu Template:
+     *
+    Call.menu(
+                playerCon,
+                1,
+                "title",
+                "message",
+                new String[][] {
+                        {"button1"},{}
+                }
+        );
+     *
+     * Some information
+     * NetConnection(player connection), menuID(id), title, message, options(buttons)
+     * Options format is like {{"buttons row 1"},{"buttons row 2"}}
+     */
+    public static void showWelcomeMenu(NetConnection playerCon) {
         Call.menu(
                 playerCon,
                 1,
-                "[purple]< Добро пожаловать! >",
-                "Режим находится в разработке, тут пока-что ничего не работает как должно.",
-                new String[][]{
-                        {"понятно"},{"понятно"}
+                "[purple]<<< Welcome! >>>",
+                "Welcome!",
+                new String[][] {
+                        {"close"},{"close2"}
                 }
         );
     }

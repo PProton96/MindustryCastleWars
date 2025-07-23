@@ -9,12 +9,12 @@ import mindustry.gen.*;
 
 public class PlayerEvents {
     public static void init() {
-        Log.info(String.format("[%s]: EventHandler.Events.PlayerEvents initialized.", PluginVars.pluginName));
+        Log.info(String.format("[%s]: main.handlers.EventHandler.Events.PlayerEvents initialized.", PluginVars.pluginName));
     }
     public static void JoinEvent(EventType.PlayerJoin event) {
         Player player = event.player;
         String uuid = player.uuid();
         PluginVars.getOrCreateData(uuid);
-        MenuHandler.welcomeMenu(player.con);
+        MenuHandler.showWelcomeMenu(player.con);
     }
 }

@@ -89,7 +89,7 @@ public class ClientCommandsHandler {
         });
         // Просто кусок дерьма для того, чтобы понять какой метод что вызывает на экране.
         handler.<Player>register("menu", "Calls menu.", (args, player) -> {
-            MenuHandler.welcomeMenu(player.con);
+            MenuHandler.showWelcomeMenu(player.con);
         });
     }
 }
